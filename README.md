@@ -11,6 +11,7 @@ To fetch and uncompress all of the files do (assuming a linux-like setup and bas
 * `for f in *.spamPct.gz ; do cat $f | gunzip -c | ../decompress-spam12 | gzip -c | gunzip > ../waterloo-spam-cw12-decoded/"${f%%.*}".txt ; done`
 
 At the end, `waterloo-spam-cw12-decoded` folder will contain *358* files : cw12-0000tw.txt  cw12-0601wb.txt  cw12-1501tw.txt ... cw12-0600wb.txt  cw12-1012wb.txt  cw12-1500wb.txt
+The path of this folder will be the first argument of your program.
 
 The tar is 654 MB. Decoded text files are 5.4 GB. The format of each decoded text file is:
 ```
@@ -25,24 +26,32 @@ The spammiest documents have a score of 0, and the least spammy have a score of 
 The docids are not listed in any particular order in each file.
 
 In this homework, you will retrieve spam scores for a given list of docids. 
-Your program will accept document identifiers that are separated by comma.
+Your program will accept document identifiers that are separated by commas.
 
 * java -jar target/HW2-1.0.jar /home/iorixxx/waterloo-spam-cw12-decoded clueweb12-0003wb-22-11553,clueweb12-0109wb-20-20925,clueweb12-0109wb-78-15059,clueweb12-0112wb-44-22651,clueweb12-0302wb-50-22339,clueweb12-0308wb-28-03934
 
 will print out:
 
 ```
+84,56,19,26,79,88
 ```
 
-* java -jar target/HW2-1.0.jar /home/iorixxx/waterloo-spam-cw12-decoded clueweb12-1500wb-39-00003
+* java -jar target/HW2-1.0.jar /home/iorixxx/waterloo-spam-cw12-decoded clueweb12-0000tw-14-03004
 
 will print out:
 
 ```
-20
+61
 ```
 
 If a non-existing docID is encountered, -1 should be returned as a spam score.
 
+* java -jar target/HW2-1.0.jar /home/iorixxx/waterloo-spam-cw12-decoded clueweb12-0003wb-22-11553,foo,clueweb12-0109wb-78-15059,bar,clueweb12-0302wb-50-22339
+
+will print out:
+
+```
+84,-1,19,-1,79
+```
 
 * Your project must a valid maven project and `mvn clean package` command should produce an executable jar file named `target/HW2-1.0.jar`.
